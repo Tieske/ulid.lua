@@ -3,7 +3,7 @@ version = "0.1.0-1"
 
 source = {
   url = "https://github.com/Tieske/ulid.lua/archive/0.1.0.tar.gz",
-  dir = "ulid-0.1.0",
+  dir = "ulid.lua-0.1.0",
 }
 
 description = {
