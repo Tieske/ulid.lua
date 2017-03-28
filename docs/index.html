@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>ulid.lua</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ulid.lua</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>ulid</strong></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="topics/readme.md.html">readme</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>ulid</code></h1>
+<p>Module for creating Universally Unique Lexicographically Sortable Identifiers.</p>
+<p> Modeled after the <a href="https://github.com/alizain/ulid">ulid implementation by alizain</a>. Please checkout the
+ documentation there for the design and characteristics of ulid.</p>
+
+<p> <strong>IMPORTANT</strong>: the standard Lua versions, based on the standard C library are
+ unfortunately very weak regarding time functions and randomizers.
+ So make sure to set it up properly!</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: Copyright 2016-2017 Thijs Schreijer</li>
+        <li><strong>License</strong>: <a href="https://opensource.org/licenses/MIT">mit</a></li>
+        <li><strong>Author</strong>: Thijs Schreijer</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#set_time_func">set_time_func (f)</a></td>
+	<td class="summary">Sets the time function to get default times from.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_random_func">set_random_func (f)</a></td>
+	<td class="summary">Sets the random function to get random input from.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#encode_time">encode_time (time, len)</a></td>
+	<td class="summary">generates the time-based part of a <a href="index.html#">ulid</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#encode_random">encode_random (len)</a></td>
+	<td class="summary">generates the random part of a <a href="index.html#">ulid</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ulid">ulid (time)</a></td>
+	<td class="summary">generates a <a href="index.html#">ulid</a>.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "set_time_func"></a>
+    <strong>set_time_func (f)</strong>
+    </dt>
+    <dd>
+    Sets the time function to get default times from.
+ This function should return time in seconds since unix epoch, with millisecond
+ precision. The default set will be <code>ngx.now()</code> or alternatively <code>socket.gettime()</code>, if
+ niether is available, it will insert an error throwing placeholder function.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         the function to set
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_random_func"></a>
+    <strong>set_random_func (f)</strong>
+    </dt>
+    <dd>
+    Sets the random function to get random input from.
+ This function should return a number between 0 and 1 when called without
+ arguments. The default is <a href="https://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>, this is ok for LuaJIT, but the
+ standard PuC-Rio Lua versions have a weak randomizer that is better replaced.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         the function to set
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "encode_time"></a>
+    <strong>encode_time (time, len)</strong>
+    </dt>
+    <dd>
+    generates the time-based part of a <a href="index.html#">ulid</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">time</span>
+         (optional) time to generate the string from, in seconds since
+ unix epoch, with millisecond precision (defaults to now)
+        </li>
+        <li><span class="parameter">len</span>
+         (optional) the length of the time-based string to return (defaults to 10)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        time-based part of <a href="index.html#">ulid</a> string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "encode_random"></a>
+    <strong>encode_random (len)</strong>
+    </dt>
+    <dd>
+    generates the random part of a <a href="index.html#">ulid</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">len</span>
+         (optional) the length of the random string to return (defaults to 16)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        random part of <a href="index.html#">ulid</a> string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ulid"></a>
+    <strong>ulid (time)</strong>
+    </dt>
+    <dd>
+    generates a <a href="index.html#">ulid</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">time</span>
+         (optional) time to generate the <a href="index.html#">ulid</a> from, in seconds since
+ unix epoch, with millisecond precision (defaults to now)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="index.html#">ulid</a> string
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> ulid_mod = <span class="global">require</span>(<span class="string">"ulid"</span>)
+
+<span class="comment">-- load LuaSocket so we can reuse its gettime function
+</span><span class="keyword">local</span> socket = <span class="global">require</span>(<span class="string">"socket"</span>)
+<span class="comment">-- set the time function explicitly, but by default it
+</span><span class="comment">-- will be picked up as well
+</span>ulid_mod.set_time_func(socket.gettime)
+
+<span class="comment">-- seed the random generator, needed for the example, but ONLY DO THIS ONCE in your
+</span><span class="comment">-- application, unless you know what you are doing! And try to use a better seed than
+</span><span class="comment">-- the time based seed used here.
+</span><span class="global">math</span>.randomseed(socket.gettime()*<span class="number">10000</span>)
+
+<span class="comment">-- get a ulid from current time
+</span><span class="keyword">local</span> id = ulid_mod.ulid()</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-03-28 14:40:33 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
